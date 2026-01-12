@@ -1,0 +1,10 @@
+{
+  "flavours": ["ii", "caelestia", "ax-shell"],
+  "unbinds": true,
+  "keybinds": {
+    "ii": "ii.conf",
+    "caelestia": "caelestia.conf",
+    "noctalia-shell": "noctalia.conf"
+  },
+  "panel_keybind": "Super+Alt, P"
+}
