@@ -1,5 +1,5 @@
 {
-  "flavours": ["ii", "caelestia", "ax-shell"],
+  "flavours": ["caelestia", "ii", "ax-shell"],
   "unbinds": true,
   "keybinds": {
     "ii": "ii.conf",
