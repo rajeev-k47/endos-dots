@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
+
 WS="Spotify"
-CLASS="spotify"
-clients=$(hyprctl -j clients)
-addr=$(echo "$clients" | jq -r --arg c "$CLASS" '.[] | select(.class==$c) | .address' | head -n1)
-if [ -n "$addr" ]; then
-  hyprctl dispatch movetoworkspacesilent "special:$WS,address:$addr"
-  hyprctl dispatch togglespecialworkspace "$WS"
+CLASS="Spotify"
+
+addr=$(hyprctl -j clients | jq -r \
+  --arg c "$CLASS" \
+  '.[] | select(.class==$c) | .address' | head -n1)
+
+if [[ -n "$addr" ]]; then
+  hyprctl dispatch 'hl.dsp.workspace.toggle_special("Spotify")'
 else
-  hyprctl dispatch exec "[workspace special:$WS] spicetify watch -s"
-  hyprctl dispatch togglespecialworkspace "$WS"
+  hyprctl dispatch 'hl.dsp.exec_cmd("spotify", { workspace = "special:Spotify silent" })'
+  hyprctl dispatch 'hl.dsp.workspace.toggle_special("Spotify")'
 fi
