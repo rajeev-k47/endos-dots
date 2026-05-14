@@ -1,16 +1,16 @@
 hl.config({
     general = {
         col = {
-            active_border   = "rgba(46474877)",
-            inactive_border = "rgba(1b1c1c33)",
+            active_border   = { colors = { "rgba(ADC7FFEE)", "rgba(DEBCDFEE)" } },
+            inactive_border = { colors = { "rgba(11131866)" } },
         },
     },
     misc = {
-        background_color = "rgba(131314FF)",
+        background_color = "rgba(111318FF)",
     },
 })
 
 hl.window_rule({
     match        = { pin = 1 },
-    border_color = "rgba(bcc8d3AA) rgba(bcc8d377)",
+    border_color = { colors = { "rgba(BFC6DCAA)", "rgba(BFC6DC77)" } },
 })

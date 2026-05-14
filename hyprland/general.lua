@@ -51,7 +51,7 @@ hl.config({
 		gaps_out = 5,
 		gaps_workspaces = 50,
 
-		border_size = 1,
+		border_size = 3,
 
 		col = {
 			active_border = "rgba(0DB7D455)",
@@ -102,6 +102,8 @@ hl.config({
 		dim_inactive = true,
 		dim_strength = 0.05,
 		dim_special = 0.2,
+		active_opacity = 0.97,
+		inactive_opacity = 0.95,
 	},
 	animations = {
 		enabled = true,
