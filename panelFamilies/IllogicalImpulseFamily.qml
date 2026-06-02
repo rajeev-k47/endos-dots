@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Wayland
 
 import qs.modules.common
 import qs.modules.ii.background
@@ -44,4 +45,58 @@ Scope {
     PanelLoader { component: SidebarRight {} }
     PanelLoader { extraCondition: Config.options.bar.vertical; component: VerticalBar {} }
     PanelLoader { component: WallpaperSelector {} }
+
+    component Watermark: PanelWindow {
+        screen: Quickshell.primaryScreen
+        WlrLayershell.layer: WlrLayer.Overlay
+        WlrLayershell.namespace: "quickshell:watermark"
+        exclusionMode: ExclusionMode.Ignore
+        color: "transparent"
+        anchors {
+            bottom: true
+            right: true
+        }
+        margins {
+            bottom: 50
+            right: 20
+        }
+        implicitWidth: 350
+        implicitHeight: 90
+
+        Column {
+            anchors.centerIn: parent
+            spacing: 4
+
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Activate Linux"
+                color: "#99ffffff"
+                font {
+                    pixelSize: 24
+                    weight: Font.Normal
+                }
+                style: Text.Sunken
+                styleColor: "#40000000"
+            }
+
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Go to Settings to activate Linux"
+                color: "#70ffffff"
+                font {
+                    pixelSize: 13
+                    weight: Font.Light
+                }
+                style: Text.Sunken
+                styleColor: "#30000000"
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.NoButton
+        }
+    }
+
+    Watermark {}
 }

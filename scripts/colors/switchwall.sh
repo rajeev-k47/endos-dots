@@ -315,6 +315,14 @@ switch() {
         "$STATE_DIR/user/generated/material_colors.scss" \
         "$HOME/.config/hypr/hyprland/colors.lua" && hyprctl reload
 
+    # Apply icon theme
+    local icondark="candy-icons"
+    if [ -f "$XDG_CONFIG_HOME/kde-material-you-colors/config.conf" ]; then
+        icondark=$(grep -oP '^iconsdark\s*=\s*\K.*' "$XDG_CONFIG_HOME/kde-material-you-colors/config.conf" 2>/dev/null || echo "$icondark")
+    fi
+    gsettings set org.gnome.desktop.interface icon-theme "$icondark" 2>/dev/null || true
+    kwriteconfig5 --file ~/.config/kdeglobals --group Icons --key Theme "$icondark" 2>/dev/null || true
+
     # Pass screen width, height, and wallpaper path to post_process
     max_width_desired="$(hyprctl monitors -j | jq '([.[].width] | min)' | xargs)"
     max_height_desired="$(hyprctl monitors -j | jq '([.[].height] | min)' | xargs)"

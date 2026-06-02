@@ -27,28 +27,7 @@ IFS=$'\n'
 colorlist=($colornames)     # Array of color names
 colorvalues=($colorstrings) # Array of color values
 
-apply_kitty() {  
-  # Check if terminal escape sequence template exists
-  if [ ! -f "$SCRIPT_DIR/terminal/kitty-theme.conf" ]; then
-    echo "Template file not found for Kitty theme. Skipping that."
-    return
-  fi
-  # Copy template
-  mkdir -p "$STATE_DIR"/user/generated/terminal
-  cp "$SCRIPT_DIR/terminal/kitty-theme.conf" "$STATE_DIR"/user/generated/terminal/kitty-theme.conf
-  # Apply colors
-  for i in "${!colorlist[@]}"; do
-    sed -i "s/${colorlist[$i]} #/${colorvalues[$i]#\#}/g" "$STATE_DIR"/user/generated/terminal/kitty-theme.conf
-  done
-
-  # Reload
-  if ! pgrep -f kitty >/dev/null; then
-    return
-  fi
-  kill -SIGUSR1 $(pidof kitty)
-}
-
-apply_anyterm() {
+apply_term() {
   # Check if terminal escape sequence template exists
   if [ ! -f "$SCRIPT_DIR/terminal/sequences.txt" ]; then
     echo "Template file not found for Terminal. Skipping that."
@@ -75,11 +54,6 @@ apply_anyterm() {
   done
 }
 
-apply_term() {
-  apply_anyterm &
-  apply_kitty &
-}
-
 # Check if terminal theming is enabled in config
 CONFIG_FILE="$XDG_CONFIG_HOME/illogical-impulse/config.json"
 if [ -f "$CONFIG_FILE" ]; then
@@ -91,5 +65,3 @@ else
   echo "Config file not found at $CONFIG_FILE. Applying terminal theming by default."
   apply_term &
 fi
-
-# apply_qt & # Qt theming is already handled by kde-material-colors
