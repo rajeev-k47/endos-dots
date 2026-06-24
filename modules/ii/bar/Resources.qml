@@ -45,6 +45,15 @@ MouseArea {
             warningThreshold: Config.options.bar.resources.cpuWarningThreshold
         }
 
+        Resource {
+            iconName: "device_thermostat"
+            percentage: (ResourceUsage.cpuTemperature) / 100
+            suffix: "°C"
+            shown: ResourceUsage.cpuTemperature > 0
+            Layout.leftMargin: shown ? 6 : 0
+            warningThreshold: 80
+        }
+
     }
 
     ResourcesPopup {
