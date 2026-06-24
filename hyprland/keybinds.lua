@@ -35,7 +35,7 @@ hl.bind("SUPER + B", hl.dsp.global("quickshell:sidebarLeftToggle"))
 hl.bind(
 	"SUPER + O",
 	hl.dsp.exec_cmd(
-		"bash -c 'CUR=$(hyprctl getoption decoration:active_opacity -j | jq -r \".float // 1\"); if [ \"$CUR\" = \"1.000000\" ]; then hyprctl --batch \"keyword decoration:active_opacity 0.90; keyword decoration:inactive_opacity 0.90\"; else hyprctl --batch \"keyword decoration:active_opacity 1; keyword decoration:inactive_opacity 1\"; fi'"
+		"bash -c 'CUR=$(hyprctl getoption decoration:active_opacity -j | jq -r \".float // 1\"); SAVE=/tmp/opacity_restore; if [ \"$CUR\" = \"1.000000\" ]; then RESTORE=$(cat \"$SAVE\" 2>/dev/null || echo 0.90); hyprctl eval \"hl.config({ decoration = { active_opacity = $RESTORE, inactive_opacity = $RESTORE } })\"; else echo \"$CUR\" > \"$SAVE\"; hyprctl eval \"hl.config({ decoration = { active_opacity = 1, inactive_opacity = 1 } })\"; fi'"
 	),
 	{ description = "Window: Toggle full opacity" }
 )
