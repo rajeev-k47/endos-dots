@@ -9,3 +9,10 @@
 --   position = "1920x0",
 --   scale = "1",
 -- })
+
+hl.config({
+  decoration = {
+    active_opacity = window_opacity,
+    inactive_opacity = window_opacity,
+  },
+})

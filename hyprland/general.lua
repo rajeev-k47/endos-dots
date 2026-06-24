@@ -102,8 +102,6 @@ hl.config({
 		dim_inactive = true,
 		dim_strength = 0.05,
 		dim_special = 0.2,
-		active_opacity = 0.97,
-		inactive_opacity = 0.95,
 	},
 	animations = {
 		enabled = true,
