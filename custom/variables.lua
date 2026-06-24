@@ -2,4 +2,4 @@
 -- The file name is for the sake of organization and does not matter
 -- See the corresponding files in ~/.config/hypr/hyprland for examples
 
-window_opacity = 0.90
+window_opacity = 0.95
