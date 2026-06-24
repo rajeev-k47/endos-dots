@@ -32,7 +32,13 @@ hl.bind("SUPER + Period", hl.dsp.global("quickshell:overviewEmojiToggle"))
 hl.bind("SUPER + A", hl.dsp.global("quickshell:sidebarLeftToggle"), { description = "Shell: Toggle left sidebar" })
 hl.bind("SUPER + ALT + A", hl.dsp.global("quickshell:sidebarLeftToggleDetach"))
 hl.bind("SUPER + B", hl.dsp.global("quickshell:sidebarLeftToggle"))
-hl.bind("SUPER + O", hl.dsp.global("quickshell:sidebarLeftToggle"))
+hl.bind(
+	"SUPER + O",
+	hl.dsp.exec_cmd(
+		"bash -c 'CUR=$(hyprctl getoption decoration:active_opacity -j | jq -r \".float // 1\"); if [ \"$CUR\" = \"1.000000\" ]; then hyprctl --batch \"keyword decoration:active_opacity 0.90; keyword decoration:inactive_opacity 0.90\"; else hyprctl --batch \"keyword decoration:active_opacity 1; keyword decoration:inactive_opacity 1\"; fi'"
+	),
+	{ description = "Window: Toggle full opacity" }
+)
 hl.bind("SUPER + N", hl.dsp.exec_cmd("caelestia toggle communication"))
 hl.bind("SUPER + Slash", hl.dsp.global("quickshell:cheatsheetToggle"), { description = "Shell: Toggle cheatsheet" })
 hl.bind("SUPER + K", hl.dsp.global("quickshell:oskToggle"), { description = "Shell: Toggle on-screen keyboard" })
