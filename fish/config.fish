@@ -9,6 +9,7 @@ if status is-interactive
     # Better ls
     alias ls='eza --icons --group-directories-first -1'
     alias bt='btop -c ~/.local/share/caelestia/btop/btop.conf --force-utf'
+    alias emux='emulator -avd Pixel_7a'
     # Abbrs
     abbr gd 'git diff'
     abbr ga 'git add .'
@@ -32,8 +33,22 @@ if status is-interactive
     abbr lla 'ls -la'
 
     set -x SHELL /bin/bash
-    # Custom colours
-    cat ~/.local/state/caelestia/sequences.txt 2>/dev/null
+    # Custom colours (source only active flavour's sequences)
+    set -l state_file ~/.switch_state
+    set -l flavour ""
+    if test -f $state_file
+        set flavour (cat $state_file)
+    end
+    switch "$flavour"
+        case ii ""
+            if test -f ~/.local/state/quickshell/user/generated/terminal/sequences.txt
+                cat ~/.local/state/quickshell/user/generated/terminal/sequences.txt
+            end
+        case caelestia
+            if test -f ~/.local/state/caelestia/sequences.txt
+                cat ~/.local/state/caelestia/sequences.txt
+            end
+    end
 
     # For jumping between prompts in foot terminal
     function mark_prompt_start --on-event fish_prompt
@@ -42,3 +57,4 @@ if status is-interactive
 end
 fish_add_path "$HOME/.ktorite"
 fish_add_path /home/rajeev/flutter/bin
+fish_add_path /home/rajeev/Android/Sdk/emulator
